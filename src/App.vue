@@ -1,20 +1,8 @@
 <template>
-  <v-app top-navbar>
-    <header>
-      <v-navbar></v-navbar>
-    </header>
-    <main>
-      <v-content>
-        <v-container>
-          <v-card class="green">
-            <v-card-text>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam animi atque cum cumque dignissimos doloremque eum, explicabo id iusto magnam nemo neque nisi obcaecati quidem quod ratione repellat temporibus!
-            </v-card-text>
-          </v-card>
-        </v-container>
-      </v-content>
-    </main>
-  </v-app>
+  <div id="app">
+    <img src="./assets/logo.png">
+    <hello></hello>
+  </div>
 </template>
 
 <script>
