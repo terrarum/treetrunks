@@ -3,19 +3,34 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
-import Vuetify from 'vuetify';
 import App from './App';
+
+import HomepageComponent from './components/HomepageComponent';
+import HelloComponent from './components/Hello';
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
-Vue.use(Vuetify);
+
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/',
+      component: HomepageComponent,
+      name: 'Home',
+    },
+    {
+      path: '/hello',
+      component: HelloComponent,
+      name: 'Hello',
+    },
+  ],
+});
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   template: '<App/>',
   components: { App },
-  mounted() {
-    this.$vuetify.init();
-  },
+  router,
+  // store,
 });

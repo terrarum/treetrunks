@@ -1,28 +1,36 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <navbar :routes="routes"></navbar>
+
+          <img src="./assets/logo.png">
+
+          <router-view></router-view>
+
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello';
+import Navbar from './components/Navbar';
 
 export default {
   name: 'app',
   components: {
-    Hello,
+    Navbar,
+  },
+  computed: {
+    routes() {
+      return this.$router.options.routes;
+    },
   },
 };
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+  @import './styles/main.scss';
 </style>
