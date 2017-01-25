@@ -9,12 +9,17 @@
         <li class="nav-item" v-for="route in routes">
           <router-link :to="route.path" class="nav-link">{{ route.name }}</router-link>
         </li>
+        <li class="nav-item" v-if="isLoggedIn">
+          <signout></signout>
+        </li>
       </ul>
     </div>
   </nav>
 </template>
 
 <script>
+  import SignOutComponent from './auth/SignOut';
+
   export default {
     name: 'Navbar',
     props: [
@@ -29,6 +34,12 @@
       rootRoute() {
         return this.routes[0];
       },
+      isLoggedIn() {
+        return this.$store.state.user.userData !== null;
+      },
+    },
+    components: {
+      signout: SignOutComponent,
     },
   };
 </script>

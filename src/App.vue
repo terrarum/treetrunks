@@ -4,11 +4,7 @@
       <div class="row">
         <div class="col-sm-12">
           <navbar :routes="routes"></navbar>
-
-          <img src="./assets/logo.png">
-
           <router-view></router-view>
-
         </div>
       </div>
     </div>

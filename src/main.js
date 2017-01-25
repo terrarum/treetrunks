@@ -4,12 +4,17 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import App from './App';
+import Store from './store/store';
+import Firebase from './firebase';
 
-import HomepageComponent from './components/HomepageComponent';
+import HomepageComponent from './components/Homepage';
 import HelloComponent from './components/Hello';
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
+
+const firebaseInstance = Firebase.getInstance();
+const store = Store.init(Vuex, firebaseInstance);
 
 const router = new VueRouter({
   routes: [
@@ -32,5 +37,5 @@ new Vue({
   template: '<App/>',
   components: { App },
   router,
-  // store,
+  store,
 });
