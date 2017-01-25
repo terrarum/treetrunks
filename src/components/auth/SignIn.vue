@@ -30,15 +30,7 @@
     data,
     methods: {
       signin() {
-        firebase.auth().signInWithEmailAndPassword(
-          this.email,
-          this.password
-        ).then((user) => {
-          console.log('Sign In Success:', user);
-          this.$store.commit('SIGNIN', user);
-        }, (error) => {
-          console.log('Sign In Failure:', error);
-        });
+        firebase.auth().signInWithEmailAndPassword(this.email, this.password);
       },
     },
   };

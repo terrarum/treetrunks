@@ -12,11 +12,7 @@
     props: ['core'],
     methods: {
       signOut: function signOut() {
-        firebase.auth().signOut().then(() => {
-          this.$store.commit('SIGNOUT');
-        }, (error) => {
-          console.log('Sign Out Failure:', error);
-        });
+        firebase.auth().signOut();
       },
     },
   };

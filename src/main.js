@@ -23,6 +23,8 @@ firebaseInstance.auth().onAuthStateChanged((user) => {
   } else {
     store.commit('SIGNOUT');
   }
+}, (error) => {
+  console.log('AuthStateChangeError:', error);
 });
 
 const router = new VueRouter({

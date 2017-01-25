@@ -39,14 +39,7 @@
     },
     methods: {
       register() {
-        firebase.auth().createUserWithEmailAndPassword(
-          this.email,
-          this.password
-        ).then((user) => {
-          this.$store.commit('SIGNIN', user);
-        }, (error) => {
-          console.log('Registration Failure:', error);
-        });
+        firebase.auth().createUserWithEmailAndPassword(this.email, this.password);
       },
     },
   };
