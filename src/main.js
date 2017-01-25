@@ -16,6 +16,15 @@ Vue.use(VueRouter);
 const firebaseInstance = Firebase.getInstance();
 const store = Store.init(Vuex, firebaseInstance);
 
+// General user auth.
+firebaseInstance.auth().onAuthStateChanged((user) => {
+  if (user) {
+    store.commit('SIGNIN', user);
+  } else {
+    store.commit('SIGNOUT');
+  }
+});
+
 const router = new VueRouter({
   routes: [
     {
