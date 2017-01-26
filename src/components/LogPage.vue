@@ -1,6 +1,16 @@
 <template>
-  <div class="hello">
-
+  <div class="logMain">
+    <div class="row">
+      <div class="col-sm-4">
+        Notes
+      </div>
+      <div class="col-sm-4">
+        To Do
+      </div>
+      <div class="col-sm-4">
+        Time Logging
+      </div>
+    </div>
   </div>
 </template>
 
