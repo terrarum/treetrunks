@@ -11,7 +11,7 @@
           <router-link :to="route.path" class="nav-link" exact>{{ route.name }}</router-link>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
+      <form class="form-inline my-2 my-lg-0" v-if="isLoggedIn">
         <signout></signout>
       </form>
     </div>
