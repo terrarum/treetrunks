@@ -49,8 +49,8 @@
   @import '../../styles/variables.scss';
 
   .auth-registration {
-    border-top: $border-width solid black;
-    border-bottom: $border-width solid black;
+    border-top: $divider-border-width solid black;
+    border-bottom: $divider-border-width solid black;
     padding: 10px 0;
   }
 </style>

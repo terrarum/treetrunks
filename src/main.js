@@ -7,8 +7,8 @@ import App from './App';
 import Store from './store/store';
 import Firebase from './firebase';
 
-import HomepageComponent from './components/Homepage';
-import HelloComponent from './components/Hello';
+import HomePageComponent from './components/HomePage';
+import LogPageComponent from './components/LogPage';
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
@@ -16,30 +16,38 @@ Vue.use(VueRouter);
 const firebaseInstance = Firebase.getInstance();
 const store = Store.init(Vuex, firebaseInstance);
 
-// General user auth.
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/',
+      component: HomePageComponent,
+      name: 'Home',
+    },
+    {
+      path: '/log',
+      component: LogPageComponent,
+      name: 'Log',
+      beforeEnter(to, from, next) {
+        if (store.state.user.userData === null) {
+          next(false);
+        } else {
+          next();
+        }
+      },
+    },
+  ],
+});
+
+// General user auth. TODO find somewhere better for this.
 firebaseInstance.auth().onAuthStateChanged((user) => {
   if (user) {
     store.commit('SIGNIN', user);
   } else {
     store.commit('SIGNOUT');
+    router.push('/');
   }
 }, (error) => {
   console.log('AuthStateChangeError:', error);
-});
-
-const router = new VueRouter({
-  routes: [
-    {
-      path: '/',
-      component: HomepageComponent,
-      name: 'Home',
-    },
-    {
-      path: '/hello',
-      component: HelloComponent,
-      name: 'Hello',
-    },
-  ],
 });
 
 /* eslint-disable no-new */

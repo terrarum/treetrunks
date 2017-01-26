@@ -1,5 +1,5 @@
 <template>
-  <button v-on:click="signOut">Sign out</button>.
+  <button class="btn btn-outline-success my-2 my-sm-0" v-on:click="signOut">Sign out</button>.
 </template>
 
 <script>
