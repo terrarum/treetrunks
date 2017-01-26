@@ -42,9 +42,10 @@ const router = new VueRouter({
 firebaseInstance.auth().onAuthStateChanged((user) => {
   if (user) {
     store.commit('SIGNIN', user);
+    router.push({ name: 'Log' });
   } else {
     store.commit('SIGNOUT');
-    router.push('/');
+    router.push({ name: 'Home' });
   }
 }, (error) => {
   console.log('AuthStateChangeError:', error);
