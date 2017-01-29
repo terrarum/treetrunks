@@ -1,13 +1,13 @@
 const init = function init() {
   // Set the initial state.
   const initialState = {
-    userData: null,
+    user: null,
   };
 
   const mutations = {
     REGISTER(state, user) {
       const tempState = state;
-      tempState.userData = {
+      tempState.user = {
         uid: user.uid,
         email: user.email,
         displayName: user.displayName,
@@ -17,7 +17,7 @@ const init = function init() {
 
     SIGNIN(state, user) {
       const tempState = state;
-      tempState.userData = {
+      tempState.user = {
         uid: user.uid,
         email: user.email,
         displayName: user.displayName,
@@ -27,7 +27,7 @@ const init = function init() {
 
     SIGNOUT(state) {
       const tempState = state;
-      tempState.userData = null;
+      tempState.user = null;
     },
   };
 

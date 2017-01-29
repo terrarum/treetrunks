@@ -4,7 +4,7 @@ import Firebase from 'firebase';
 const firebaseConfig = {
   apiKey: 'AIzaSyDLhdScznyWx2VUqz1lb_4HqkpZ0eoJjbI',
   authDomain: 'treetrunks-2e4ef.firebaseapp.com',
-  databaseURL: 'https://treetrunks-2e4ef.firebaseio.com"',
+  databaseURL: 'https://treetrunks-2e4ef.firebaseio.com',
 };
 
 let instance = false;

@@ -18,7 +18,7 @@
     },
     computed: {
       isNotLoggedIn() {
-        return this.$store.state.user.userData === null;
+        return this.$store.state.userModule.user === null;
       },
     },
   };

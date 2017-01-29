@@ -2,21 +2,30 @@
   <div class="logMain">
     <div class="row">
       <div class="col-sm-4">
-        Notes
+        <NoteLogger></NoteLogger>
       </div>
       <div class="col-sm-4">
-        To Do
+        <ToDoLogger></ToDoLogger>
       </div>
       <div class="col-sm-4">
-        Time Logging
+        <TimeLogger></TimeLogger>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import NoteLogger from './loggers/NoteLogger';
+  import ToDoLogger from './loggers/ToDoLogger';
+  import TimeLogger from './loggers/TimeLogger';
+
   export default {
     name: 'log',
+    components: {
+      NoteLogger,
+      ToDoLogger,
+      TimeLogger,
+    },
   };
 </script>
 

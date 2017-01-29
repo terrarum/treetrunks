@@ -12,7 +12,7 @@
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" v-if="isLoggedIn">
-        <signout></signout>
+        <SignOutComponent></SignOutComponent>
       </form>
     </div>
   </nav>
@@ -26,31 +26,32 @@
     props: [
       'routes',
     ],
-    data() {
-      return {
-        msg: 'Welcome to Your Vue.js App',
-      };
-    },
     computed: {
       rootRoute() {
         return this.routes[0];
       },
       isLoggedIn() {
-        return this.$store.state.user.userData !== null;
+        return this.$store.state.userModule.user !== null;
       },
     },
     components: {
-      signout: SignOutComponent,
+      SignOutComponent,
     },
   };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  @import '../styles/variables.scss';
+
   .navbar-brand.router-link-active {
     background-color: unset;
   }
   .router-link-active {
     background-color: white;
+  }
+
+  .navbar {
+    margin-bottom: $default-spacer;
   }
 </style>
