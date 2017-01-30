@@ -19,6 +19,7 @@ module.exports = {
   },
   // add your custom rules here
   'rules': {
+    'brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       'js': 'never',
