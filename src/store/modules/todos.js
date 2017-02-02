@@ -6,8 +6,13 @@ const init = function init() {
 
   const mutations = {
     SET_TODOS(state, todos) {
+      if (todos === null) return;
       const tempState = state;
       tempState.todos = todos;
+    },
+    ADD_ITEM(state, item) {
+      const tempState = state;
+      tempState.todos.push(item);
     },
   };
 

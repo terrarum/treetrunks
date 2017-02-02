@@ -1,8 +1,8 @@
 <template>
   <div class="addtodoitem">
-    <form class="form-inline">
+    <form class="form-inline" v-on:submit.prevent="addTodoItem">
       <label class="sr-only" for="inlineFormInput">Add Task</label>
-      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Add Task">
+      <input v-model="newTodo" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Add Task">
       <button type="submit" class="btn btn-primary">Add</button>
     </form>
   </div>
@@ -11,6 +11,17 @@
 <script>
   export default {
     name: 'AddToDoItem',
+    data() {
+      return {
+        newTodo: '',
+      };
+    },
+    methods: {
+      addTodoItem() {
+        this.$store.commit('ADD_ITEM', this.newTodo);
+        this.newTodo = '';
+      },
+    },
   };
 </script>
 
