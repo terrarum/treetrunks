@@ -4,11 +4,11 @@ const getInitialData = function getInitialData(firebase, store) {
   const todosRef = firebase.database().ref(`loggers/${store.state.userModule.user.uid}/todos`);
 
   notesRef.once('value').then((snapshot) => {
-    store.commit('UPDATE_NOTES', snapshot.val());
+    store.commit('SET_NOTES', snapshot.val());
   });
 
   todosRef.once('value').then((snapshot) => {
-    store.commit('UPDATE_TODOS', snapshot.val());
+    store.commit('SET_TODOS', snapshot.val());
   });
 };
 

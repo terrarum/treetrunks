@@ -1,13 +1,13 @@
 const init = function init() {
   // Set the initial state.
   const initialState = {
-    notes: '',
+    todos: [],
   };
 
   const mutations = {
-    SET_NOTES(state, text) {
+    SET_TODOS(state, todos) {
       const tempState = state;
-      tempState.notes = text;
+      tempState.todos = todos;
     },
   };
 

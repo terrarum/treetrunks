@@ -1,5 +1,6 @@
 import userModule from './modules/user';
 import notesModule from './modules/notes';
+import todosModule from './modules/todos';
 
 const debug = process.env.NODE_ENV !== 'production';
 
@@ -10,6 +11,7 @@ const init = function init(Vuex) {
     modules: {
       userModule: userModule.init(),
       notesModule: notesModule.init(),
+      todosModule: todosModule.init(),
     },
     strict: debug,
   });
