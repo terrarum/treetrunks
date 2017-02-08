@@ -15,7 +15,7 @@
     }),
     methods: {
       updateNotes(e) {
-        this.$store.commit('UPDATE_NOTES', e.target.value);
+        this.$store.commit('SET_NOTES', e.target.value);
       },
     },
   };

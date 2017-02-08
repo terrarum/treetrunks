@@ -43,7 +43,7 @@ const router = new VueRouter({
 
 // Subscribe to store events.
 store.subscribe((mutation, state) => {
-  if (mutation.type === 'UPDATE_NOTES') {
+  if (mutation.type === 'SET_NOTES') {
     const notesRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/notes`);
     notesRef.set(mutation.payload);
   }
