@@ -8,7 +8,15 @@ const getInitialData = function getInitialData(firebase, store) {
   });
 
   todosRef.once('value').then((snapshot) => {
-    store.commit('SET_TODOS', snapshot.val());
+    const val = snapshot.val();
+    const arr = [];
+
+    // Convert response back to an array.
+    Object.keys(val).forEach((key) => {
+      arr.push(val[key]);
+    });
+
+    store.commit('SET_TODOS', arr);
   });
 };
 

@@ -8,11 +8,18 @@ const init = function init() {
     SET_TODOS(state, todos) {
       if (todos === null) return;
       const tempState = state;
+      console.log(todos);
       tempState.todos = todos;
     },
     ADD_ITEM(state, item) {
       const tempState = state;
       tempState.todos.push(item);
+    },
+    REMOVE_ITEM(state, itemIndex) {
+      const tempState = state;
+      if (itemIndex > -1) {
+        tempState.todos.splice(itemIndex, 1);
+      }
     },
   };
 

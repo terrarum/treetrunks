@@ -47,6 +47,15 @@ store.subscribe((mutation, state) => {
     const notesRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/notes`);
     notesRef.set(mutation.payload);
   }
+  else if (mutation.type === 'SET_TODOS') {
+    console.log(mutation);
+    const todosRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/todos`);
+    todosRef.set(mutation.payload);
+  }
+  else if (mutation.type === 'ADD_ITEM') {
+    const todosRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/todos`);
+    todosRef.push(mutation.payload);
+  }
 });
 
 /* eslint-disable no-new */
