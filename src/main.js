@@ -50,15 +50,12 @@ store.subscribe((mutation, state) => {
     const notesRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/notes`);
     notesRef.set(mutation.payload);
   }
-  else if (mutation.type === 'READ_TODOS') {
-    console.log(mutation);
-    const todosRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/todos`);
-    todosRef.set(mutation.payload);
-  }
   else if (mutation.type === 'CREATE_TODO') {
     const todosRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/todos`);
     const model = new TodoModel(mutation.payload);
-    todosRef.push(model);
+    const newTodo = todosRef.push();
+    model.id = newTodo.key;
+    newTodo.set(model);
   }
 });
 

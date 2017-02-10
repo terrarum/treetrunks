@@ -9,8 +9,14 @@ const getInitialData = function getInitialData(firebase, store) {
 
   todosRef.once('value').then((snapshot) => {
     const val = snapshot.val();
-    console.log(val);
-    store.commit('READ_TODOS', val);
+    const arr = [];
+
+    // Convert response back to an array of TodoModels.
+    Object.keys(val).forEach((key) => {
+      arr.push(val[key]);
+    });
+
+    store.commit('READ_TODOS', arr);
   });
 };
 
