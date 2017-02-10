@@ -57,6 +57,11 @@ store.subscribe((mutation, state) => {
     model.id = newTodo.key;
     newTodo.set(model);
   }
+  else if (mutation.type === 'DELETE_TODO') {
+    const todoKey = mutation.payload;
+    const todoRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/todos/${todoKey}`);
+    todoRef.remove();
+  }
 });
 
 Vue.filter('dateformat', value => dateFormat(value, 'HH:MM dd/mm/yy'));

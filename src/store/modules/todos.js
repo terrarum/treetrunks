@@ -17,10 +17,16 @@ const init = function init() {
       const model = new TodoModel(todo);
       tempState.todos.push(model);
     },
-    DELETE_TODO(state, itemIndex) {
+    DELETE_TODO(state, itemId) {
       const tempState = state;
-      if (itemIndex > -1) {
-        tempState.todos.splice(itemIndex, 1);
+      const todosIterator = tempState.todos.entries();
+      for (const item of todosIterator) {
+        const key = item[0];
+        const value = item[1];
+        if (value.id === itemId) {
+          tempState.todos.splice(key, 1);
+          break;
+        }
       }
     },
   };
