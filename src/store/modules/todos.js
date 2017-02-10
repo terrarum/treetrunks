@@ -17,6 +17,19 @@ const init = function init() {
       const model = new TodoModel(todo);
       tempState.todos.push(model);
     },
+    UPDATE_TODO(state, payload) {
+      const tempState = state;
+      const todosIterator = tempState.todos.entries();
+      for (const item of todosIterator) {
+        const key = item[0];
+        const value = item[1];
+        if (value.id === payload.itemId) {
+          tempState.todos[key].updateDate = Date.now();
+          tempState.todos[key].task = payload.value;
+          break;
+        }
+      }
+    },
     DELETE_TODO(state, itemId) {
       const tempState = state;
       const todosIterator = tempState.todos.entries();

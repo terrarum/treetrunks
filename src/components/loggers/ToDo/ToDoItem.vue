@@ -4,7 +4,7 @@
       <small class="d-flex">Created at {{ item.creationDate | dateformat }}</small>
       <button class="btn btn-danger btn-sm" v-on:click="deleteTodo">Delete</button>
     </div>
-    {{ item.task }}
+    <textarea class="todoContent" v-on:keydown="updateTodo">{{ item.task }}</textarea>
   </div>
 </template>
 
@@ -16,10 +16,19 @@
       deleteTodo() {
         this.$store.commit('DELETE_TODO', this.item.id);
       },
+      updateTodo(event) {
+        if (event.keyCode === 13 && !event.shiftKey) {
+          event.preventDefault();
+          const value = event.target.value;
+          this.$store.commit('UPDATE_TODO', { itemId: this.item.id, value });
+        }
+      },
     },
   };
 </script>
 
 <style scoped lang="scss">
-
+  .todoContent {
+    width: 100%;
+  }
 </style>

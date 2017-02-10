@@ -57,6 +57,22 @@ store.subscribe((mutation, state) => {
     model.id = newTodo.key;
     newTodo.set(model);
   }
+  else if (mutation.type === 'UPDATE_TODO') {
+    const todoKey = mutation.payload.itemId;
+    const todoRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/todos/${todoKey}`);
+    const todosIterator = state.todosModule.todos.entries();
+    for (const item of todosIterator) {
+      const value = item[1];
+      if (value.id === mutation.payload.itemId) {
+        console.log(value);
+        const updates = {};
+        updates['/task'] = value.task;
+        updates['/updateDate'] = value.updateDate;
+        todoRef.update(updates);
+        break;
+      }
+    }
+  }
   else if (mutation.type === 'DELETE_TODO') {
     const todoKey = mutation.payload;
     const todoRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/todos/${todoKey}`);
