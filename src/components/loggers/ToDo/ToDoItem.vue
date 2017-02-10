@@ -4,7 +4,7 @@
       <small class="d-flex">Created at {{ item.creationDate | dateformat }}</small>
       <button class="btn btn-danger btn-sm" v-on:click="deleteTodo">Delete</button>
     </div>
-    <input class="todoContent form-control" v-on:keydown="updateTodo" :value="item.task"></input>
+    <input class="todoContent form-control" v-on:keydown="updateTodo" :value="item.task" />
   </div>
 </template>
 
