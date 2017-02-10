@@ -4,7 +4,7 @@
       <small class="d-flex">Created at {{ item.creationDate | dateformat }}</small>
       <button class="btn btn-danger btn-sm" v-on:click="deleteTodo">Delete</button>
     </div>
-    <textarea class="todoContent" v-on:keydown="updateTodo">{{ item.task }}</textarea>
+    <input class="todoContent form-control" v-on:keydown="updateTodo" :value="item.task"></input>
   </div>
 </template>
 
@@ -30,5 +30,10 @@
 <style scoped lang="scss">
   .todoContent {
     width: 100%;
+
+  }
+
+  .todoContent:focus {
+
   }
 </style>
