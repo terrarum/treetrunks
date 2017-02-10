@@ -1,6 +1,5 @@
 <template>
-  <div class="todoitems">
-    Items:
+  <div class="todoitems list-group">
     <toDoItem v-for="item in items" v-bind:item="item"></toDoItem>
   </div>
 </template>

@@ -4,19 +4,13 @@ const getInitialData = function getInitialData(firebase, store) {
   const todosRef = firebase.database().ref(`loggers/${store.state.userModule.user.uid}/todos`);
 
   notesRef.once('value').then((snapshot) => {
-    store.commit('SET_NOTES', snapshot.val());
+    store.commit('READ_NOTES', snapshot.val());
   });
 
   todosRef.once('value').then((snapshot) => {
     const val = snapshot.val();
-    const arr = [];
-
-    // Convert response back to an array.
-    Object.keys(val).forEach((key) => {
-      arr.push(val[key]);
-    });
-
-    store.commit('SET_TODOS', arr);
+    console.log(val);
+    store.commit('READ_TODOS', val);
   });
 };
 
@@ -24,7 +18,7 @@ const init = function init(vue, firebase) {
   const router = vue.$router;
   const store = vue.$store;
 
-  // General user auth. TODO find somewhere better for this.
+  // General user auth.
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       store.commit('SIGNIN', user);

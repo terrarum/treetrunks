@@ -1,3 +1,5 @@
+import TodoModel from '../../models/TodoModel';
+
 const init = function init() {
   // Set the initial state.
   const initialState = {
@@ -5,17 +7,17 @@ const init = function init() {
   };
 
   const mutations = {
-    SET_TODOS(state, todos) {
+    READ_TODOS(state, todos) {
       if (todos === null) return;
       const tempState = state;
-      console.log(todos);
       tempState.todos = todos;
     },
-    ADD_ITEM(state, item) {
+    CREATE_TODO(state, todo) {
       const tempState = state;
-      tempState.todos.push(item);
+      const model = new TodoModel(todo);
+      tempState.todos.push(model);
     },
-    REMOVE_ITEM(state, itemIndex) {
+    DELETE_TODO(state, itemIndex) {
       const tempState = state;
       if (itemIndex > -1) {
         tempState.todos.splice(itemIndex, 1);

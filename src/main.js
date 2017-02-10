@@ -3,12 +3,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
+import dateFormat from 'dateformat';
 import App from './App';
 import Store from './store/store';
 import Firebase from './firebase';
 
 import HomePageComponent from './components/HomePage';
 import LogPageComponent from './components/LogPage';
+
+import TodoModel from './models/TodoModel';
 
 import mainController from './controllers/main';
 
@@ -43,20 +46,23 @@ const router = new VueRouter({
 
 // Subscribe to store events.
 store.subscribe((mutation, state) => {
-  if (mutation.type === 'SET_NOTES') {
+  if (mutation.type === 'UPDATE_NOTES') {
     const notesRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/notes`);
     notesRef.set(mutation.payload);
   }
-  else if (mutation.type === 'SET_TODOS') {
+  else if (mutation.type === 'READ_TODOS') {
     console.log(mutation);
     const todosRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/todos`);
     todosRef.set(mutation.payload);
   }
-  else if (mutation.type === 'ADD_ITEM') {
+  else if (mutation.type === 'CREATE_TODO') {
     const todosRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/todos`);
-    todosRef.push(mutation.payload);
+    const model = new TodoModel(mutation.payload);
+    todosRef.push(model);
   }
 });
+
+Vue.filter('dateformat', value => dateFormat(value, 'HH:MM dd/mm/yy'));
 
 /* eslint-disable no-new */
 const vue = new Vue({
