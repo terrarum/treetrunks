@@ -24,13 +24,15 @@ const init = function init() {
 
   const actions = {
     READ_NOTES(context) {
+      // set 'loading notes'
       notesRef.once('value').then((snapshot) => {
+        // set 'done'
         context.commit('READ_NOTES', snapshot.val());
       });
     },
     UPDATE_NOTES(context, payload) {
       notesRef.set(payload).then(() => {
-        context.commit('READ_NOTES', payload);
+        context.commit('UPDATE_NOTES', payload);
       });
     },
   };

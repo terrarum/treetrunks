@@ -1,22 +1,33 @@
 <template>
   <div class="NoteLogger">
     <h3>Notes</h3>
+    <AjaxStatus></AjaxStatus>
     <textarea name="Notes" class="textarea" :value="notes" @input="updateNotes"></textarea>
   </div>
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+  import { debounce } from 'lodash';
+  import AjaxStatus from '../AjaxStatus';
+
+  const updateNotesDebounced = debounce((store, e) => {
+    store.dispatch('UPDATE_NOTES', e.target.value);
+  }, 1000);
 
   export default {
     name: 'NoteLogger',
-    computed: mapState({
-      notes: state => state.notesModule.notes,
-    }),
+    computed: {
+      notes() {
+        return this.$store.state.notesModule.notes;
+      },
+    },
     methods: {
       updateNotes(e) {
-        this.$store.dispatch('UPDATE_NOTES', e.target.value);
+        updateNotesDebounced(this.$store, e);
       },
+    },
+    components: {
+      AjaxStatus,
     },
   };
 </script>

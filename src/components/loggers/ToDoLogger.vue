@@ -2,19 +2,19 @@
   <div class="ToDoLogger">
     <h3>To Do</h3>
     <addToDoItem></addToDoItem>
-    <toDoItems></toDoItems>
+    <ToDoItems></ToDoItems>
   </div>
 </template>
 
 <script>
   import addToDoItem from './ToDo/AddToDoItem';
-  import toDoItems from './ToDo/ToDoItems';
+  import ToDoItems from './ToDo/ToDoItems';
 
   export default {
     name: 'ToDoLogger',
     components: {
       addToDoItem,
-      toDoItems,
+      ToDoItems,
     },
   };
 </script>

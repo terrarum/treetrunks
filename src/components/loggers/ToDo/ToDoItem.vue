@@ -19,8 +19,9 @@
       updateTodo(event) {
         if (event.keyCode === 13 && !event.shiftKey) {
           event.preventDefault();
+          const itemId = this.item.id;
           const value = event.target.value;
-          this.$store.dispatch('UPDATE_TODO', { itemId: this.item.id, value });
+          this.$store.dispatch('UPDATE_TODO', { itemId, value });
         }
       },
     },
@@ -30,10 +31,5 @@
 <style scoped lang="scss">
   .todoContent {
     width: 100%;
-
-  }
-
-  .todoContent:focus {
-
   }
 </style>
