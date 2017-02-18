@@ -10,10 +10,16 @@ const init = function init(Vuex) {
   const store = new Vuex.Store({
     modules: {
       userModule: userModule.init(),
-      notesModule: notesModule.init(),
-      todosModule: todosModule.init(),
     },
     strict: debug,
+  });
+
+  // If a user has signed in, register user-only modules.
+  store.subscribe((mutation) => {
+    if (mutation.type === 'SIGNIN') {
+      store.registerModule('notesModule', notesModule.init());
+      store.registerModule('todosModule', todosModule.init());
+    }
   });
 
   return store;

@@ -1,10 +1,16 @@
 import TodoModel from '../../models/TodoModel';
+import Firebase from '../../firebase';
 
 const init = function init() {
   // Set the initial state.
   const initialState = {
     todos: [],
   };
+
+  // Firebase instance.
+  const firebase = Firebase.getInstance();
+  const userId = firebase.auth().currentUser.uid;
+  const todosRef = firebase.database().ref(`loggers/${userId}/todos`);
 
   const mutations = {
     READ_TODOS(state, todos) {
@@ -44,9 +50,28 @@ const init = function init() {
     },
   };
 
+  const actions = {
+    READ_TODOS(context) {
+      todosRef.once('value').then((snapshot) => {
+        const val = snapshot.val();
+        const arr = [];
+
+        if (val !== null && val !== undefined) {
+          // Convert response back to an array of TodoModels.
+          Object.keys(val).forEach((key) => {
+            arr.push(val[key]);
+          });
+        }
+
+        context.commit('READ_TODOS', arr);
+      });
+    },
+  };
+
   return {
     state: initialState,
     mutations,
+    actions,
   };
 };
 

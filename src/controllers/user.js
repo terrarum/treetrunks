@@ -1,25 +1,7 @@
 // Receive initial data from Firebase.
 const getInitialData = function getInitialData(firebase, store) {
-  const notesRef = firebase.database().ref(`loggers/${store.state.userModule.user.uid}/notes`);
-  const todosRef = firebase.database().ref(`loggers/${store.state.userModule.user.uid}/todos`);
-
-  notesRef.once('value').then((snapshot) => {
-    store.commit('READ_NOTES', snapshot.val());
-  });
-
-  todosRef.once('value').then((snapshot) => {
-    const val = snapshot.val();
-    const arr = [];
-
-    if (val !== null && val !== undefined) {
-      // Convert response back to an array of TodoModels.
-      Object.keys(val).forEach((key) => {
-        arr.push(val[key]);
-      });
-    }
-
-    store.commit('READ_TODOS', arr);
-  });
+  store.dispatch('READ_NOTES');
+  store.dispatch('READ_TODOS');
 };
 
 const init = function init(vue, firebase) {

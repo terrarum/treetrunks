@@ -64,7 +64,6 @@ store.subscribe((mutation, state) => {
     for (const item of todosIterator) {
       const value = item[1];
       if (value.id === mutation.payload.itemId) {
-        console.log(value);
         const updates = {};
         updates['/task'] = value.task;
         updates['/updateDate'] = value.updateDate;
