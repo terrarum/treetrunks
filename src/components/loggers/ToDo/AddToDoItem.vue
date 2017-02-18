@@ -18,7 +18,7 @@
     },
     methods: {
       addTodoItem() {
-        this.$store.commit('CREATE_TODO', this.newTodo);
+        this.$store.dispatch('CREATE_TODO', this.newTodo);
         this.newTodo = '';
       },
     },

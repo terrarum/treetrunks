@@ -14,13 +14,13 @@
     props: ['item'],
     methods: {
       deleteTodo() {
-        this.$store.commit('DELETE_TODO', this.item.id);
+        this.$store.dispatch('DELETE_TODO', this.item.id);
       },
       updateTodo(event) {
         if (event.keyCode === 13 && !event.shiftKey) {
           event.preventDefault();
           const value = event.target.value;
-          this.$store.commit('UPDATE_TODO', { itemId: this.item.id, value });
+          this.$store.dispatch('UPDATE_TODO', { itemId: this.item.id, value });
         }
       },
     },

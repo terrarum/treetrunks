@@ -20,8 +20,7 @@ const init = function init() {
     },
     CREATE_TODO(state, todo) {
       const tempState = state;
-      const model = new TodoModel(todo);
-      tempState.todos.push(model);
+      tempState.todos.push(todo);
     },
     UPDATE_TODO(state, payload) {
       const tempState = state;
@@ -64,6 +63,43 @@ const init = function init() {
         }
 
         context.commit('READ_TODOS', arr);
+      });
+    },
+    CREATE_TODO(context, payload) {
+      // Create a placeholder item in Firebase.
+      const newTodoRef = todosRef.push();
+      // Create a new TodoModel.
+      const model = new TodoModel(payload);
+      // Add the placeholder ID to the new model.
+      model.id = newTodoRef.key;
+      // Push the new model to Firebase.
+      newTodoRef.set(model).then(() => {
+        // Update Vuex.
+        context.commit('CREATE_TODO', model);
+      });
+    },
+    UPDATE_TODO({ commit, state }, payload) {
+      const todoKey = payload.itemId;
+      const todoRef = firebase.database().ref(`loggers/${userId}/todos/${todoKey}`);
+      const todosIterator = state.todos.entries();
+      for (const item of todosIterator) {
+        const value = item[1];
+        if (value.id === payload.itemId) {
+          const updates = {};
+          updates['/task'] = payload.value;
+          updates['/updateDate'] = value.updateDate;
+          todoRef.update(updates).then(() => {
+            commit('UPDATE_TODO', payload.value);
+          });
+          break;
+        }
+      }
+    },
+    DELETE_TODO(context, payload) {
+      const todoKey = payload;
+      const todoRef = firebase.database().ref(`loggers/${userId}/todos/${todoKey}`);
+      todoRef.remove().then(() => {
+        context.commit('DELETE_TODO', payload);
       });
     },
   };

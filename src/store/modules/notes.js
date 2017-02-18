@@ -28,6 +28,11 @@ const init = function init() {
         context.commit('READ_NOTES', snapshot.val());
       });
     },
+    UPDATE_NOTES(context, payload) {
+      notesRef.set(payload).then(() => {
+        context.commit('READ_NOTES', payload);
+      });
+    },
   };
 
   return {

@@ -11,8 +11,6 @@ import Firebase from './firebase';
 import HomePageComponent from './components/HomePage';
 import LogPageComponent from './components/LogPage';
 
-import TodoModel from './models/TodoModel';
-
 import mainController from './controllers/main';
 
 Vue.use(Vuex);
@@ -42,41 +40,6 @@ const router = new VueRouter({
       },
     },
   ],
-});
-
-// Subscribe to store events.
-store.subscribe((mutation, state) => {
-  if (mutation.type === 'UPDATE_NOTES') {
-    const notesRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/notes`);
-    notesRef.set(mutation.payload);
-  }
-  else if (mutation.type === 'CREATE_TODO') {
-    const todosRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/todos`);
-    const model = new TodoModel(mutation.payload);
-    const newTodo = todosRef.push();
-    model.id = newTodo.key;
-    newTodo.set(model);
-  }
-  else if (mutation.type === 'UPDATE_TODO') {
-    const todoKey = mutation.payload.itemId;
-    const todoRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/todos/${todoKey}`);
-    const todosIterator = state.todosModule.todos.entries();
-    for (const item of todosIterator) {
-      const value = item[1];
-      if (value.id === mutation.payload.itemId) {
-        const updates = {};
-        updates['/task'] = value.task;
-        updates['/updateDate'] = value.updateDate;
-        todoRef.update(updates);
-        break;
-      }
-    }
-  }
-  else if (mutation.type === 'DELETE_TODO') {
-    const todoKey = mutation.payload;
-    const todoRef = firebase.database().ref(`loggers/${state.userModule.user.uid}/todos/${todoKey}`);
-    todoRef.remove();
-  }
 });
 
 Vue.filter('dateformat', value => dateFormat(value, 'HH:MM dd/mm/yy'));
