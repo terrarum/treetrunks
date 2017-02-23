@@ -7,6 +7,7 @@ import dateFormat from 'dateformat';
 import App from './App';
 import Store from './store/store';
 import Firebase from './firebase';
+import ProgressStatus from './plugins/ProgressStatus';
 
 import HomePageComponent from './components/HomePage';
 import LogPageComponent from './components/LogPage';
