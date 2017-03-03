@@ -2,7 +2,7 @@
   <div class="NoteLogger">
     <div class="header">
       <h3 class="title">Notes</h3>
-      <div class="ajaxstatus">{{ ajaxstatus }}</div>
+      <div class="ajaxstatus">{{ status }}</div>
     </div>
     <textarea name="Notes" class="textarea" :value="notes" @input="updateNotes"></textarea>
   </div>
@@ -11,23 +11,31 @@
 <script>
   import { debounce } from 'lodash';
 
-  const updateNotesDebounced = debounce((store, e) => {
-    store.dispatch('UPDATE_NOTES', e.target.value);
+  const updateNotesDebounced = debounce((store, data) => {
+    store.dispatch('UPDATE_NOTES', data);
   }, 1000);
 
   export default {
     name: 'NoteLogger',
+    data: function data() {
+      return {
+        statusValue: '...',
+      };
+    },
     computed: {
       notes() {
         return this.$store.state.notesModule.notes;
       },
-      ajaxstatus() {
-        return 'spinning';
+      status() {
+        return this.statusValue;
       },
     },
     methods: {
       updateNotes(e) {
-        updateNotesDebounced(this.$store, e);
+        updateNotesDebounced(this.$store, {
+          component: this,
+          value: e.target.value,
+        });
       },
     },
   };

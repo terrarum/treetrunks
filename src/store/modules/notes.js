@@ -24,15 +24,18 @@ const init = function init() {
 
   const actions = {
     READ_NOTES(context) {
-      // set 'loading notes'
+      // payloadTemp.component.status = 'Reading...';
       notesRef.once('value').then((snapshot) => {
-        // set 'done'
+        // payloadTemp.component.status = 'Read.';
         context.commit('READ_NOTES', snapshot.val());
       });
     },
     UPDATE_NOTES(context, payload) {
-      notesRef.set(payload).then(() => {
-        context.commit('UPDATE_NOTES', payload);
+      const payloadTemp = payload;
+      payloadTemp.component.statusValue = 'Sending...';
+      notesRef.set(payloadTemp.value).then(() => {
+        payloadTemp.component.statusValue = 'Sent.';
+        context.commit('UPDATE_NOTES', payloadTemp.value);
       });
     },
   };

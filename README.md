@@ -55,3 +55,27 @@ x Input for adding items
   All array operations are performed on the Vuex copy of the array. This means I cannot add, remove or
   update individual items from Firebase, I can only send it the entire list each time it changes. It
   would be good to figure out a solution for that without coupling the vue and firebase code too much.
+
+## Showing AJAX status on components.
+I need to be able to update some text on each module based on the Firebase query status in the
+modules Actions. This means that code in the action needs to report to the component on the state
+of the Firebase call.
+
+I thought of making a Vue plugin but I'm not sure how that really solves the problem. I would need
+to register a plugin instance and refer to that in the store and in the component, so it's basically
+just a bridge. So basically just a wrapper around an event bus or something.
+
+It might be possible to listen to the firebase object and see when calls to the database get made
+and when they are responded to. That would allow me to listen for changes outside of the Store code,
+but does mean that it's coupled to Firebase. I'm fine with that. Doesn't see possible.
+
+SO.
+
+Create an object that stores an event bus and will pass it between places that listen for it? How do
+computed properties work when not referencing data?
+
+Actually, if the store had a reference to its associated component, it could just update a data
+property?
+
+That works, but updating the {{ status }} text rerenders the entire component, so the old text
+appears until Firebase completes and commits the new text. This seems wrong.

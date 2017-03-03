@@ -1,6 +1,8 @@
+import NoteLogger from '../components/loggers/NoteLogger';
+
 // Receive initial data from Firebase.
 const getInitialData = function getInitialData(firebase, store) {
-  store.dispatch('READ_NOTES');
+  store.dispatch('READ_NOTES', { component: NoteLogger });
   store.dispatch('READ_TODOS');
 };
 
