@@ -2,7 +2,7 @@
   <div class="NoteLogger">
     <div class="header">
       <h3 class="title">Notes</h3>
-      <div class="ajaxstatus">{{ status }}</div>
+      {{ status }}
     </div>
     <textarea name="Notes" class="textarea" :value="notes" @input="updateNotes"></textarea>
   </div>
@@ -17,23 +17,17 @@
 
   export default {
     name: 'NoteLogger',
-    data: function data() {
-      return {
-        statusValue: '...',
-      };
-    },
     computed: {
       notes() {
         return this.$store.state.notesModule.notes;
       },
       status() {
-        return this.statusValue;
+        return this.$store.state.notesModule.status;
       },
     },
     methods: {
       updateNotes(e) {
         updateNotesDebounced(this.$store, {
-          component: this,
           value: e.target.value,
         });
       },

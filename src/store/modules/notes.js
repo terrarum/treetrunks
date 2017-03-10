@@ -4,6 +4,7 @@ const init = function init() {
   // Set the initial state.
   const initialState = {
     notes: '',
+    status: '',
   };
 
   // Firebase instance.
@@ -20,6 +21,10 @@ const init = function init() {
       const tempState = state;
       tempState.notes = text;
     },
+    UPDATE_STATUS(state, text) {
+      const tempState = state;
+      tempState.status = text;
+    },
   };
 
   const actions = {
@@ -32,11 +37,19 @@ const init = function init() {
     },
     UPDATE_NOTES(context, payload) {
       const payloadTemp = payload;
-      payloadTemp.component.statusValue = 'Sending...';
-      notesRef.set(payloadTemp.value).then(() => {
-        payloadTemp.component.statusValue = 'Sent.';
-        context.commit('UPDATE_NOTES', payloadTemp.value);
-      });
+      const oldValue = context.state.notes;
+      context.commit('UPDATE_STATUS', 'Sending...');
+      // Optimistic update.
+      context.commit('UPDATE_NOTES', payloadTemp.value);
+      notesRef.set(payloadTemp.value).then(
+        () => { // Success.
+          context.commit('UPDATE_STATUS', 'Sent.');
+        },
+        () => { // Failure. Revert if Firebase has failed to save data.
+          context.commit('UPDATE_STATUS', 'Failed.');
+          context.commit('UPDATE_NOTES', oldValue);
+        }
+      );
     },
   };
 
