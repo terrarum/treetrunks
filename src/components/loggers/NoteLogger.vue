@@ -12,7 +12,7 @@
   import { debounce } from 'lodash';
 
   const updateNotesDebounced = debounce((store, data) => {
-    store.dispatch('UPDATE_NOTES', data);
+    store.dispatch('notesModule/UPDATE_NOTES', data);
   }, 1000);
 
   export default {

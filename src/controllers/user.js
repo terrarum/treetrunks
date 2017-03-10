@@ -2,8 +2,8 @@ import NoteLogger from '../components/loggers/NoteLogger';
 
 // Receive initial data from Firebase.
 const getInitialData = function getInitialData(firebase, store) {
-  store.dispatch('READ_NOTES', { component: NoteLogger });
-  store.dispatch('READ_TODOS');
+  store.dispatch('notesModule/READ_NOTES', { component: NoteLogger });
+  store.dispatch('todosModule/READ_TODOS');
 };
 
 const init = function init(vue, firebase) {

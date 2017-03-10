@@ -5,6 +5,7 @@ const init = function init() {
   // Set the initial state.
   const initialState = {
     todos: [],
+    status: '',
   };
 
   // Firebase instance.
@@ -47,6 +48,10 @@ const init = function init() {
         }
       }
     },
+    UPDATE_STATUS(state, text) {
+      const tempState = state;
+      tempState.status = text;
+    },
   };
 
   const actions = {
@@ -82,6 +87,7 @@ const init = function init() {
       const todoKey = payload.itemId;
       const todoRef = firebase.database().ref(`loggers/${userId}/todos/${todoKey}`);
       const todosIterator = state.todos.entries();
+      commit('UPDATE_STATUS', 'Sending...');
       for (const item of todosIterator) {
         const value = item[1];
         if (value.id === payload.itemId) {
@@ -89,6 +95,7 @@ const init = function init() {
           updates['/task'] = payload.value;
           updates['/updateDate'] = value.updateDate;
           todoRef.update(updates).then(() => {
+            commit('UPDATE_STATUS', 'Sent.');
             commit('UPDATE_TODO', payload.value);
           });
           break;
@@ -105,6 +112,7 @@ const init = function init() {
   };
 
   return {
+    namespaced: true,
     state: initialState,
     mutations,
     actions,

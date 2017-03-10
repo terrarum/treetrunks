@@ -54,6 +54,7 @@ const init = function init() {
   };
 
   return {
+    namespaced: true,
     state: initialState,
     mutations,
     actions,

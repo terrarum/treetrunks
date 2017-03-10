@@ -1,6 +1,9 @@
 <template>
   <div class="ToDoLogger">
-    <h3>To Do</h3>
+    <div class="header">
+      <h3>To Do</h3>
+      {{ status }}
+    </div>
     <addToDoItem></addToDoItem>
     <ToDoItems></ToDoItems>
   </div>
@@ -12,6 +15,11 @@
 
   export default {
     name: 'ToDoLogger',
+    computed: {
+      status() {
+        return this.$store.state.todosModule.status;
+      },
+    },
     components: {
       addToDoItem,
       ToDoItems,

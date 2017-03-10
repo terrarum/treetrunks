@@ -14,14 +14,14 @@
     props: ['item'],
     methods: {
       deleteTodo() {
-        this.$store.dispatch('DELETE_TODO', this.item.id);
+        this.$store.dispatch('todosModule/DELETE_TODO', this.item.id);
       },
       updateTodo(event) {
         if (event.keyCode === 13 && !event.shiftKey) {
           event.preventDefault();
           const itemId = this.item.id;
           const value = event.target.value;
-          this.$store.dispatch('UPDATE_TODO', { itemId, value });
+          this.$store.dispatch('todosModule/UPDATE_TODO', { itemId, value });
         }
       },
     },
