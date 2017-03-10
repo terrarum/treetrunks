@@ -55,8 +55,10 @@ const init = function init() {
   };
 
   const actions = {
-    READ_TODOS(context) {
+    READ_TODOS({ commit }) {
+      commit('UPDATE_STATUS', 'Reading...');
       todosRef.once('value').then((snapshot) => {
+        commit('UPDATE_STATUS', 'Read.');
         const val = snapshot.val();
         const arr = [];
 
@@ -67,10 +69,11 @@ const init = function init() {
           });
         }
 
-        context.commit('READ_TODOS', arr);
+        commit('READ_TODOS', arr);
       });
     },
-    CREATE_TODO(context, payload) {
+    CREATE_TODO({ commit }, payload) {
+      commit('UPDATE_STATUS', 'Creating...');
       // Create a placeholder item in Firebase.
       const newTodoRef = todosRef.push();
       // Create a new TodoModel.
@@ -80,14 +83,15 @@ const init = function init() {
       // Push the new model to Firebase.
       newTodoRef.set(model).then(() => {
         // Update Vuex.
-        context.commit('CREATE_TODO', model);
+        commit('UPDATE_STATUS', 'Created.');
+        commit('CREATE_TODO', model);
       });
     },
     UPDATE_TODO({ commit, state }, payload) {
+      commit('UPDATE_STATUS', 'Updating...');
       const todoKey = payload.itemId;
       const todoRef = firebase.database().ref(`loggers/${userId}/todos/${todoKey}`);
       const todosIterator = state.todos.entries();
-      commit('UPDATE_STATUS', 'Sending...');
       for (const item of todosIterator) {
         const value = item[1];
         if (value.id === payload.itemId) {
@@ -97,15 +101,18 @@ const init = function init() {
           todoRef.update(updates).then(() => {
             commit('UPDATE_STATUS', 'Sent.');
             commit('UPDATE_TODO', payload.value);
+            commit('UPDATE_STATUS', 'Updated.');
           });
           break;
         }
       }
     },
     DELETE_TODO(context, payload) {
+      context.commit('UPDATE_STATUS', 'Deleting...');
       const todoKey = payload;
       const todoRef = firebase.database().ref(`loggers/${userId}/todos/${todoKey}`);
       todoRef.remove().then(() => {
+        context.commit('UPDATE_STATUS', 'Deleted.');
         context.commit('DELETE_TODO', payload);
       });
     },

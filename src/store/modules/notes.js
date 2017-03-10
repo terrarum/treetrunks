@@ -29,21 +29,21 @@ const init = function init() {
 
   const actions = {
     READ_NOTES(context) {
-      // payloadTemp.component.status = 'Reading...';
+      context.commit('UPDATE_STATUS', 'Reading...');
       notesRef.once('value').then((snapshot) => {
-        // payloadTemp.component.status = 'Read.';
+        context.commit('UPDATE_STATUS', 'Read.');
         context.commit('READ_NOTES', snapshot.val());
       });
     },
     UPDATE_NOTES(context, payload) {
       const payloadTemp = payload;
       const oldValue = context.state.notes;
-      context.commit('UPDATE_STATUS', 'Sending...');
+      context.commit('UPDATE_STATUS', 'Updating...');
       // Optimistic update.
       context.commit('UPDATE_NOTES', payloadTemp.value);
       notesRef.set(payloadTemp.value).then(
         () => { // Success.
-          context.commit('UPDATE_STATUS', 'Sent.');
+          context.commit('UPDATE_STATUS', 'Updated.');
         },
         () => { // Failure. Revert if Firebase has failed to save data.
           context.commit('UPDATE_STATUS', 'Failed.');
